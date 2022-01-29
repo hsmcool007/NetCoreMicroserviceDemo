@@ -24,7 +24,7 @@ namespace Order.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            string result = $"【订单服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
+            string result ="test"+ $"【订单服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
                 $"{Request.HttpContext.Connection.LocalIpAddress}:{Request.HttpContext.Connection.LocalPort}";
             return Ok(result);
         }
