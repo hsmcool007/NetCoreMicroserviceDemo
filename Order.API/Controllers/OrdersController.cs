@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace Order.API.Controllers
     {
 
         private readonly ILogger<OrdersController> _logger;
-      
-        public OrdersController(ILogger<OrdersController> logger)
+        private readonly IConfiguration _configuration;
+
+        public OrdersController(ILogger<OrdersController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
     
         }
 
@@ -25,7 +28,7 @@ namespace Order.API.Controllers
         public IActionResult Get()
         {
             string result ="test"+ $"【订单服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
-                $"{Request.HttpContext.Connection.LocalIpAddress}:{Request.HttpContext.Connection.LocalPort}";
+                $"{Request.HttpContext.Connection.LocalIpAddress}:{_configuration["ConsulSetting:ServicePort"]}";
             return Ok(result);
         }
 

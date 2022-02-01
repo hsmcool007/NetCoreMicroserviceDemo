@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NetCoreDemoService.IService;
+using NetCoreDemoService.ServiceImplements;
 
 namespace Order.API.Controllers
 {
@@ -17,23 +19,20 @@ namespace Order.API.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ITestService _testService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,ITestService testService)
         {
             _logger = logger;
+            _testService = testService;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public ActionResult Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return Ok(_testService.test(1, 2));
         }
+
+
     }
 }
