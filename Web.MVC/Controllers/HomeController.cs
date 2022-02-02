@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.MVC.Helper;
 using Web.MVC.Models;
 
 namespace Web.MVC.Controllers
@@ -12,14 +13,19 @@ namespace Web.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IServiceHelper _serviceHelper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IServiceHelper serviceHelper)
         {
             _logger = logger;
+            _serviceHelper = serviceHelper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.OrderData = await _serviceHelper.GetOrder();
+            ViewBag.ProductData = await _serviceHelper.GetProduct();
+
             return View();
         }
 
