@@ -40,7 +40,7 @@ namespace Web.MVC.Helper
 
             //每次随机访问一个服务实例
             var Client = new RestClient(serviceUrls[new Random().Next(0, serviceUrls.Length)]);
-            var request = new RestRequest("/orders", Method.Get);
+            var request = new RestRequest("/api/orders", Method.Get);
 
             var response = await Client.ExecuteAsync(request);
             return response.Content;
@@ -69,7 +69,7 @@ namespace Web.MVC.Helper
 
             //每次随机访问一个服务实例
             var Client = new RestClient(serviceUrls[new Random().Next(0, serviceUrls.Length)]);
-            var request = new RestRequest("/products", Method.Get);
+            var request = new RestRequest("/api/products", Method.Get);
 
             var response = await Client.ExecuteAsync(request);
             return response.Content;
