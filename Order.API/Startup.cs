@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NetCoreDemoService.IService;
 using NetCoreDemoService.ServiceImplements;
+using Exceptionless;
 
 namespace Order.API
 {
@@ -21,6 +22,8 @@ namespace Order.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
+            ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
         }
 
         public IConfiguration Configuration { get; }
@@ -31,6 +34,7 @@ namespace Order.API
             services.AddControllers();
 
             services.AddTransient<ITestService, TestService>();
+            services.AddSingleton<ILogService, ExceptionLessLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +50,8 @@ namespace Order.API
                 endpoints.MapControllers();
             });
            app.RegisterConsul(Configuration, lifetime);
+          
+            app.UseExceptionless();
         }
     }
 }
