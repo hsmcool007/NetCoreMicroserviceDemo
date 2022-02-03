@@ -45,6 +45,8 @@ namespace Order.API.Controllers
 
             ExceptionlessClient.Default.CreateLog("hello").Submit();
 
+            ExceptionlessClient.Default.CreateLog("this is a test", Exceptionless.Logging.LogLevel.Debug).Submit();
+
             string result ="test"+ $"【订单服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
                 $"{Request.HttpContext.Connection.LocalIpAddress}:{_configuration["ConsulSetting:ServicePort"]}";
             return Ok(result);
