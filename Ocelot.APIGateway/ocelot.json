@@ -1,0 +1,57 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "10.112.9.230",
+          "Port": 9060
+        },
+        {
+          "Host": "10.112.9.230",
+          "Port": 9061
+        },
+        {
+          "Host": "10.112.9.230",
+          "Port": 9062
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //负载均衡，轮询机制 LeastConnection/RoundRobin/NoLoadBalancer/CookieStickySessions
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "10.112.9.230",
+          "Port": 9050
+        },
+        {
+          "Host": "10.112.9.230",
+          "Port": 9051
+        },
+        {
+          "Host": "10.112.9.230",
+          "Port": 9052
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //负载均衡，轮询机制 LeastConnection/RoundRobin/NoLoadBalancer/CookieStickySessions
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://10.112.9.230:9080"
+  }
+}

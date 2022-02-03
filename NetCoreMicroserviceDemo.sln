@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.API", "Order.API\Orde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.API", "Product.API\Product.API.csproj", "{76F018CA-E671-4B15-B2B9-D51144823768}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreDemoService", "NetCoreDemoService\NetCoreDemoService.csproj", "{32A9EA3F-AD17-4B4B-BA1C-22EB245B6BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreDemoService", "NetCoreDemoService\NetCoreDemoService.csproj", "{32A9EA3F-AD17-4B4B-BA1C-22EB245B6BA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.MVC", "Web.MVC\Web.MVC.csproj", "{7653633D-5B8C-46C4-A4D9-A974C52E784A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.MVC", "Web.MVC\Web.MVC.csproj", "{7653633D-5B8C-46C4-A4D9-A974C52E784A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.APIGateway", "Ocelot.APIGateway\Ocelot.APIGateway.csproj", "{0BF9ECB5-202A-4272-ADB7-0ADDC08E5F9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7653633D-5B8C-46C4-A4D9-A974C52E784A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7653633D-5B8C-46C4-A4D9-A974C52E784A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7653633D-5B8C-46C4-A4D9-A974C52E784A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BF9ECB5-202A-4272-ADB7-0ADDC08E5F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF9ECB5-202A-4272-ADB7-0ADDC08E5F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF9ECB5-202A-4272-ADB7-0ADDC08E5F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF9ECB5-202A-4272-ADB7-0ADDC08E5F9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
