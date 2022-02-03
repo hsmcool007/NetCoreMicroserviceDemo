@@ -22,8 +22,7 @@ namespace Order.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
-            ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
+         
         }
 
         public IConfiguration Configuration { get; }
@@ -41,6 +40,10 @@ namespace Order.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IHostApplicationLifetime lifetime)
         {
 
+            ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
+            ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
+            app.UseExceptionless();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -50,8 +53,7 @@ namespace Order.API
                 endpoints.MapControllers();
             });
            app.RegisterConsul(Configuration, lifetime);
-          
-            app.UseExceptionless();
+
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NetCoreDemoService.IService;
+using Exceptionless;
 
 namespace Order.API.Controllers
 {
@@ -30,6 +31,15 @@ namespace Order.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+
+            try
+            {
+                throw new Exception("测试项目的异常");
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit(); //这个很重要
+            }
 
             _logService.Info("This is a test");
 
