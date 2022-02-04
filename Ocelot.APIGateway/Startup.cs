@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ocelot.Cache.CacheManager;
+using Ocelot.Provider.Polly;
 
 namespace Ocelot.APIGateway
 {
@@ -19,7 +21,15 @@ namespace Ocelot.APIGateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot().AddConsul();//添加consul支持
+            //添加ocelot服务
+            services.AddOcelot()
+                //添加consul支持
+                .AddConsul()
+                //添加缓存
+                .AddCacheManager(x =>
+                {
+                    x.WithDictionaryHandle();
+                }).AddPolly(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
