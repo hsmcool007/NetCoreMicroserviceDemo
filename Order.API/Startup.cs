@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using NetCoreDemoService.IService;
 using NetCoreDemoService.ServiceImplements;
 using Exceptionless;
+using DbHelper;
 
 namespace Order.API
 {
@@ -31,9 +32,9 @@ namespace Order.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.AddTransient<ITestService, TestService>();
             services.AddSingleton<ILogService, ExceptionLessLogger>();
+            DataAccess.ConnectionConfigure(Configuration.GetConnectionString("OrderContext"));
 
             //services.AddCap(x =>
             //{

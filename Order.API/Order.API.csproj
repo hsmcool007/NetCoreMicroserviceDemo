@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DbHelper\DbHelper.csproj" />
     <ProjectReference Include="..\NetCoreDemoService\NetCoreDemoService.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using NetCoreDemoService.IService;
 using Exceptionless;
 using DotNetCore.CAP;
+using DbHelper;
+using DbHelper.DataModel;
 
 namespace Order.API.Controllers
 {
@@ -33,6 +35,21 @@ namespace Order.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+
+
+            try
+            {
+                DataAccess.InsertTest(new Test { Name = "test" });
+            }
+            catch(Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+            }
+         
+
+
+
+
 
             try
             {
