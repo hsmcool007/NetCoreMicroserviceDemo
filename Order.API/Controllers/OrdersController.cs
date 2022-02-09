@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NetCoreDemoService.IService;
 using Exceptionless;
+using DotNetCore.CAP;
 
 namespace Order.API.Controllers
 {
@@ -19,6 +20,7 @@ namespace Order.API.Controllers
         private readonly ILogger<OrdersController> _logger;
         private readonly IConfiguration _configuration;
         private readonly ILogService _logService;
+        private readonly ICapPublisher _capBus;
 
         public OrdersController(ILogger<OrdersController> logger, IConfiguration configuration,ILogService logService)
         {
@@ -51,6 +53,10 @@ namespace Order.API.Controllers
                 $"{Request.HttpContext.Connection.LocalIpAddress}:{_configuration["ConsulSetting:ServicePort"]}";
             return Ok(result);
         }
+
+
+
+
 
 
     }

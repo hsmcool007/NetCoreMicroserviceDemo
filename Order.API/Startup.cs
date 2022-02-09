@@ -34,6 +34,18 @@ namespace Order.API
 
             services.AddTransient<ITestService, TestService>();
             services.AddSingleton<ILogService, ExceptionLessLogger>();
+
+            //services.AddCap(x =>
+            //{
+            //    x.UseMySql(Configuration.GetSection("ConnectionStrings:OrderContext").Value);
+
+            //    x.UseRabbitMQ(conf =>
+            //    {
+            //        conf.HostName = "10.112.9.230";
+            //        conf.UserName = "guest";
+            //        conf.Password = "guest";
+            //    });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

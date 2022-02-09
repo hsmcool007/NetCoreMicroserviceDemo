@@ -7,8 +7,15 @@
 
   <ItemGroup>
     <PackageReference Include="Consul" Version="1.6.10.4" />
+    <PackageReference Include="DotNetCore.CAP" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.MySql" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="5.2.0" />
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.6.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreDemoService\NetCoreDemoService.csproj" />
   </ItemGroup>
 
 
