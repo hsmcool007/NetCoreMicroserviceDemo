@@ -36,17 +36,17 @@ namespace Order.API
             services.AddSingleton<ILogService, ExceptionLessLogger>();
             DataAccess.ConnectionConfigure(Configuration.GetConnectionString("OrderContext"));
 
-            //services.AddCap(x =>
-            //{
-            //    x.UseMySql(Configuration.GetSection("ConnectionStrings:OrderContext").Value);
+            services.AddCap(x =>
+            {
+                x.UseMySql(Configuration.GetSection("ConnectionStrings:OrderContext").Value);
 
-            //    x.UseRabbitMQ(conf =>
-            //    {
-            //        conf.HostName = "10.112.9.230";
-            //        conf.UserName = "guest";
-            //        conf.Password = "guest";
-            //    });
-            //});
+                x.UseRabbitMQ(conf =>
+                {
+                    conf.HostName = "10.112.9.135";
+                    conf.UserName = "guest";
+                    conf.Password = "pdchi2002$";
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,9 +56,7 @@ namespace Order.API
             ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
             ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
             app.UseExceptionless();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -27,10 +27,39 @@
       }
     },
     {
+
+
+
       "DownstreamPathTemplate": "/api/orders",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/orders",
       "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "OrderService",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 5,
+        "Region": "regionname"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [ "SuperClient" ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 2,
+        "Limit": 2
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 5000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/orders/{url}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/orders/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
       "ServiceName": "OrderService",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"

@@ -11,6 +11,7 @@ using Exceptionless;
 using DotNetCore.CAP;
 using DbHelper;
 using DbHelper.DataModel;
+using DbHelper.MessageDto;
 
 namespace Order.API.Controllers
 {
@@ -35,21 +36,28 @@ namespace Order.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-
-
-            try
-            {
-                DataAccess.InsertTest(new Test { Name = "test" });
-            }
-            catch(Exception ex)
-            {
-                ex.ToExceptionless().Submit();
-            }
-         
-
             string result ="test"+ $"【订单服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
                 $"{Request.HttpContext.Connection.LocalIpAddress}:{_configuration["ConsulSetting:ServicePort"]}";
             return Ok(result);
+        }
+
+
+        [Route("Create")]
+        [HttpPost]
+        public  IActionResult CreateOrder(DbHelper.DataModel.Order order)
+        {
+            try
+            {
+                _logService.Info("Begin to create");
+                DbHelper.DataAccess.InsertOrderWithCAP(order, new CreateOrderMessageDto { Count = order.Count, ProductID = order.ProductID }, _capBus);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                _logService.Error(ex.Message);
+                return Ok();
+            }
+
         }
 
 

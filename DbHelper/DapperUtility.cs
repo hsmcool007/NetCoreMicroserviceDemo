@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DotNetCore.CAP;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -531,6 +532,43 @@ namespace DbHelper
             return insertId;
 
         }
+
+
+        public async void DapperTransaction<T,TT>(string sql,T model,TT Message, ICapPublisher _capBus)
+        {
+            using (var cnn =GetDbConnection())
+            {
+                //cnn.Open();
+                using (var tx = cnn.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+
+                        cnn.Open();
+                        cnn.Execute(sql, model);
+                        await _capBus.PublishAsync("order.services.createorder",Message);                     
+                        tx.Commit();
+                       
+                    }
+                    catch (Exception e)
+                    {                  
+                        tx.Rollback();
+                        throw;
+                    }
+                    finally
+                    {
+                        if (cnn.State == ConnectionState.Open)
+                            cnn.Close();
+                       
+                    }
+                }
+            }
+
+
+        }
+
+
+
 
     }
 }
