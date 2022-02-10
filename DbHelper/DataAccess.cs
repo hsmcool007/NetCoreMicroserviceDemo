@@ -53,8 +53,25 @@ namespace DbHelper
 
         public static   void InsertOrderWithCAP(Order order,CreateOrderMessageDto messageDto, ICapPublisher _capBus)
         {
-             string sql = "";
-             dapperUtility.DapperTransaction<Order, CreateOrderMessageDto>(sql, order, messageDto, _capBus);
+            try
+            {
+                string sql = @"INSERT INTO `Order`.`Order`
+                            (
+                            `CreateTime`,
+                            `ProductID`,
+                            `Count`)
+                            VALUES
+                            (
+                            @CreateTime,
+                            @ProductID,
+                            @Count)";
+                dapperUtility.DapperTransaction<Order, CreateOrderMessageDto>(sql, order, messageDto, _capBus);
+            }
+            catch
+            {
+                throw;
+            }
+    
         }
 
 
