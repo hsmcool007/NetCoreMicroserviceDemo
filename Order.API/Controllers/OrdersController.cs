@@ -25,11 +25,12 @@ namespace Order.API.Controllers
         private readonly ILogService _logService;
         private readonly ICapPublisher _capBus;
 
-        public OrdersController(ILogger<OrdersController> logger, IConfiguration configuration,ILogService logService)
+        public OrdersController(ILogger<OrdersController> logger, IConfiguration configuration,ILogService logService,ICapPublisher capPublisher)
         {
             _logger = logger;
             _configuration = configuration;
             _logService = logService;
+            _capBus = capPublisher;
     
         }
 
