@@ -45,7 +45,9 @@ namespace Order.API
                     conf.HostName = "10.112.9.135";
                     conf.UserName = "guest";
                     conf.Password = "pdchi2002$";
+                    conf.Port = 5673;
                 });
+             
             });
         }
 
@@ -64,6 +66,7 @@ namespace Order.API
                 endpoints.MapControllers();
             });
            app.RegisterConsul(Configuration, lifetime);
+           
 
         }
     }
