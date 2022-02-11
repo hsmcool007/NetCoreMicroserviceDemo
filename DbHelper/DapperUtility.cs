@@ -542,9 +542,7 @@ namespace DbHelper
                 using (var tx = cnn.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     try
-                    {
-
-                        cnn.Open();
+                    {                  
                         cnn.Execute(sql, model);
                         await _capBus.PublishAsync("order.services.createorder",Message);                     
                         tx.Commit();
