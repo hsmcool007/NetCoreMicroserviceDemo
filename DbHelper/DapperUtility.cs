@@ -538,7 +538,7 @@ namespace DbHelper
         {
             using (var cnn =GetDbConnection())
             {
-                //cnn.Open();
+                cnn.Open();
                 using (var tx = cnn.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     try
