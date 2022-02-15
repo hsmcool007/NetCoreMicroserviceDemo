@@ -1,3 +1,4 @@
+using DbHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,22 @@ namespace Product.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            DataAccess.ConnectionConfigure(Configuration.GetConnectionString("ProductContext"));
+
+            services.AddCap(x =>
+            {
+                x.UseMySql(Configuration.GetSection("ConnectionStrings:ProductContext").Value);
+
+                x.UseRabbitMQ(conf =>
+                {
+                    conf.HostName = "10.112.9.135";
+                    conf.UserName = "guest";
+                    conf.Password = "pdchi2002$";
+                    conf.Port = 5673;
+                });
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

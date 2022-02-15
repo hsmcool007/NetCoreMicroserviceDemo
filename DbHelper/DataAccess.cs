@@ -5,6 +5,7 @@ using DbHelper.DataModel;
 using Microsoft.Extensions.Configuration;
 using DbHelper.MessageDto;
 using DotNetCore.CAP;
+using System.Linq;
 
 namespace DbHelper
 {
@@ -72,6 +73,26 @@ namespace DbHelper
                 throw;
             }
     
+        }
+
+
+        public static Product GetProductById(int Id)
+        {
+            string sql = string.Format("SELECT * FROM Product.Product where Id={0}", Id);
+            return  dapperUtility.DapperQuery<Product>(sql).FirstOrDefault();
+
+
+        }
+
+        public static void UpdateProduct(Product p)
+        {
+
+            string sql = String.Format(@"UPDATE Product
+                                        SET                                     
+                                        Name = '{0}',
+                                        Stock={1}
+                                        WHERE Id = {1} ", p.Name, p.Stock, p.Id);
+             dapperUtility.DapperUpdate(sql);
         }
 
 
