@@ -39,21 +39,13 @@ namespace DbHelper
 
                 catch (MySqlException sqlex)
                 {
+                    throw;
 
-                    //LogManager.Error(string.Format("Connection String: {0}", connectionString), sqlex);
-                    switch (sqlex.Number)
-                    {
-                        case 0:
-                            //LogManager.Error("Cannot connect to server.", null);
-                            break;
-
-                        case 1045:
-                            //LogManager.Error("Invalid username/password.", null);
-                            break;
-                    }
+             
                 }
                 catch (System.Exception sysex)
                 {
+                    throw;
                     //LogManager.Error(string.Format("Connection String: {0}", connectionString), sysex);
                 }
                 finally

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NetCoreDemoService.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,22 @@ namespace Product.API.Controllers
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly IConfiguration _configuration;
-        public ProductsController(ILogger<ProductsController> logger,IConfiguration configuration)
+        private readonly ICapPublisher _capBus;
+        private readonly ILogService _logService;
+        public ProductsController(ILogger<ProductsController> logger,IConfiguration configuration, ILogService logService, ICapPublisher capPublisher)
         {
             _logger = logger;
             _configuration = configuration;
-  
+            _capBus = capPublisher;
+            _logService = logService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
+
+            _logService.Info("Called Product service");
+
             string result = $"【产品服务】{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}——" +
                 $"{Request.HttpContext.Connection.LocalIpAddress}:{_configuration["ConsulSetting:ServicePort"]}";
             return Ok(result);
@@ -41,11 +48,21 @@ namespace Product.API.Controllers
         [CapSubscribe("order.services.createorder")]
         public  IActionResult ReduceStock(CreateOrderMessageDto message)
         {
-            //业务代码
-            var product = DbHelper.DataAccess.GetProductById(message.ProductID);
-            product.Stock -= message.Count;
 
-            DbHelper.DataAccess.UpdateProduct(product);
+            try
+            {
+                _logService.Info("Called order.services.createorder");
+                var product = DbHelper.DataAccess.GetProductById(message.ProductID);
+                product.Stock -= message.Count;
+                DbHelper.DataAccess.UpdateProduct(product);
+
+            }
+            catch(Exception ex)
+            {
+                _logService.Error(ex.Message);
+            }
+            //业务代码
+    
             return Ok();
         }
 

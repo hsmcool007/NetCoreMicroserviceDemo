@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NetCoreDemoService.IService;
+using NetCoreDemoService.ServiceImplements;
 using Product.API.Helper;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace Product.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddSingleton<ILogService, ExceptionLessLogger>();
             DataAccess.ConnectionConfigure(Configuration.GetConnectionString("ProductContext"));
 
             services.AddCap(x =>
