@@ -1,5 +1,6 @@
 ﻿using DbHelper.MessageDto;
 using DotNetCore.CAP;
+using Exceptionless;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,8 @@ namespace Product.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+
+            
 
             _logService.Info("Called Product service");
 

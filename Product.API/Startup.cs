@@ -53,6 +53,7 @@ namespace Product.API
         {
             ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
             ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
+            app.UseExceptionless();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,7 +67,7 @@ namespace Product.API
             {
                 endpoints.MapControllers();
             });
-            app.RegisterConsul(Configuration, lifetime);
+           app.RegisterConsul(Configuration, lifetime);
         }
     }
 }
