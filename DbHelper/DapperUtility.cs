@@ -341,21 +341,12 @@ namespace DbHelper
                 }
                 catch (MySqlException sqlex)
                 {
-                    //LogManager.Error(string.Format("Connection String: {0}", connectionString), sqlex);
-                    switch (sqlex.Number)
-                    {
-                        case 0:
-                            //LogManager.Error("Cannot connect to server.", null);
-                            break;
 
-                        case 1045:
-                            //LogManager.Error("Invalid username/password.", null);
-                            break;
-                    }
+                    throw;
                 }
                 catch (System.Exception sysex)
                 {
-                    //LogManager.Error(string.Format("Connection String: {0}", connectionString), sysex);
+                    throw;
                 }
                 finally
                 {
