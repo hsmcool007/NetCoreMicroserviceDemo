@@ -91,7 +91,7 @@ namespace DbHelper
                                         SET                                     
                                         Name = '{0}',
                                         Stock={1}
-                                        WHERE Id = {1} ", p.Name, p.Stock, p.Id);
+                                        WHERE Id = {2} ", p.Name, p.Stock, p.Id);
              dapperUtility.DapperUpdate(sql);
         }
 
