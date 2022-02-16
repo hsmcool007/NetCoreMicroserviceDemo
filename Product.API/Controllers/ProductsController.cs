@@ -55,8 +55,14 @@ namespace Product.API.Controllers
             try
             {
                 _logService.Info("Called order.services.createorder");
+
+                _logService.Info(message.ProductID.ToString());
+
                 var product = DbHelper.DataAccess.GetProductById(message.ProductID);
                 product.Stock -= message.Count;
+
+
+
                 DbHelper.DataAccess.UpdateProduct(product);
 
             }
